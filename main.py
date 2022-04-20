@@ -1,26 +1,25 @@
-# import os
-# import charade
-# import pdfplumber
-#
-# pasta = "NFunciona/"
-# encoder = "latin-1"
-#
-# diretorio = os.listdir(r'/Users/andreonaymayer/Python/' + pasta)
-# print(diretorio)
-#
-#
-# for arquivo in diretorio:
-#     if "pdf" in arquivo:
-#         print(arquivo)
-#         outfile = open(r'/Users/andreonaymayer/Python/Saida/saidaN.txt', 'w', encoding="utf-8")
-#         pdf = pdfplumber.open(r'/Users/andreonaymayer/Python/' + pasta + arquivo)
-#
-#         for page in pdf.pages:
-#             print(
-#                 "===============================================================================: ---" + page.__str__().__str__())
-#             table = page.extract_text()
-#             print(table)
-#             outfile.write(table)
-#         outfile.close()
-#
-#
+import os
+import timeit
+
+import pdfplumber
+
+from Traducao import converte
+
+pasta = "Funciona/"
+encoder = "utf-8"
+
+diretorio = os.listdir(r'/Users/andreonaymayer/Python/' + pasta)
+inicio = timeit.default_timer()
+for arquivo in diretorio:
+    if "pdf" in arquivo:
+        print(arquivo)
+        outfile = open(r'/Users/andreonaymayer/Python/Saida/saida.txt', 'w', encoding=encoder)
+        pdf = pdfplumber.open(r'/Users/andreonaymayer/Python/' + pasta + arquivo)
+
+        for page in pdf.pages:
+            outfile.write(converte(page.extract_text()))
+
+        outfile.close()
+
+fim = timeit.default_timer()
+print('duracao: %f' % (fim - inicio))
