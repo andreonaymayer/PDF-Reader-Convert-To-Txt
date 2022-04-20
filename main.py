@@ -1,22 +1,24 @@
-import pdfplumber
 import os
-import shutil
-import sys
+
+import pdfplumber
+
+pasta = "Funciona/"
 try:
-    caminhos = os.listdir(r'C:\Users\Eduardo\Downloads\PDFs')
-    print(caminhos)
-    for nome in caminhos:
-        print(nome)
-        outfile = open(r'C:\Users\Eduardo\Downloads\teste.txt','w')
-        pdf = pdfplumber.open(r'C:\Users\Eduardo\Downloads\PDFs\\'+nome)
-        for page in pdf.pages:
-            print(page)
-            table = page.extract_text()
-            #print(table)
-            # for row in table[0:]:
-            #     outcsv.writerow(row)
-            outfile.write(table)
-            print("Escrevi")
-    outfile.close()
+    diretorio = os.listdir(r'/Users/andreonaymayer/Python/' + pasta)
+    print(diretorio)
+
+    for arquivo in diretorio:
+        if "pdf" in arquivo:
+            print(arquivo)
+            outfile = open(r'/Users/andreonaymayer/Python/Saida/saidaN.txt', 'w', encoding="latin-1")
+            pdf = pdfplumber.open(r'/Users/andreonaymayer/Python/' + pasta + arquivo)
+
+            for page in pdf.pages:
+                print(
+                    "===============================================================================: ---" + page.__str__().__str__())
+                table = page.extract_text()
+                print(table)
+                outfile.write(table)
+            outfile.close()
 except:
     print('Erro na conversão')
